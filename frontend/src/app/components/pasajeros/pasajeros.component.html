@@ -1,0 +1,89 @@
+<div class="main-content">
+  <div class="page-header">
+    <h2><i class="bi bi-people"></i> Pasajeros</h2>
+    <p>Simulación de cola de espera (FIFO) — Primero en llegar, primero en ser atendido</p>
+  </div>
+
+  <!-- Selector de estación -->
+  <div class="glass-card mb-4">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-5">
+        <label class="form-label">Seleccionar Estación</label>
+        <select class="form-select" [(ngModel)]="estacionSeleccionada" (ngModelChange)="onEstacionChange()">
+          <option value="" disabled>Elegir estación...</option>
+          @for (est of estaciones; track est.estacionId) {
+            <option [value]="est.codigo">{{ est.codigo }} — {{ est.nombre }}</option>
+          }
+        </select>
+      </div>
+      @if (estacionSeleccionada) {
+        <div class="col-md-7">
+          <div class="d-flex gap-2 justify-content-end">
+            <button class="btn btn-gradient" (click)="encolar()" [disabled]="!nuevoPasajero.nombre">
+              <i class="bi bi-person-plus"></i> Encolar Pasajero
+            </button>
+            <button class="btn btn-danger-cyber" (click)="desencolar()">
+              <i class="bi bi-person-check"></i> Atender Siguiente
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (estacionSeleccionada) {
+    <div class="row g-4">
+      <!-- Formulario para encolar -->
+      <div class="col-md-5">
+        <div class="glass-card animate-in">
+          <h5 class="mb-3"><i class="bi bi-person-plus"></i> Nuevo Pasajero</h5>
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre del pasajero" [(ngModel)]="nuevoPasajero.nombre">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Destino Deseado</label>
+            <select class="form-select" [(ngModel)]="nuevoPasajero.destinoDeseado">
+              <option value="" disabled>Seleccionar destino...</option>
+              @for (est of estaciones; track est.estacionId) {
+                <option [value]="est.codigo">{{ est.nombre }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cola actual -->
+      <div class="col-md-7">
+        <div class="glass-card animate-in animate-delay-1">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0"><i class="bi bi-list-ol"></i> Cola de Espera — {{ nombreEstacion }}</h5>
+            <span class="badge-cyber">{{ cantidadEnEspera }} en espera</span>
+          </div>
+
+          @if (pasajeros.length > 0) {
+            @for (p of pasajeros; track $index; let i = $index) {
+              <div class="queue-item animate-in">
+                <div class="queue-position">{{ i + 1 }}</div>
+                <div class="flex-grow-1">
+                  <div style="font-weight: 600;">{{ p.nombre }}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                    Destino: {{ p.destinoDeseado || 'No especificado' }}
+                  </div>
+                </div>
+                @if (i === 0) {
+                  <span class="badge badge-success">Siguiente</span>
+                }
+              </div>
+            }
+          } @else {
+            <div class="text-center py-4" style="color: var(--text-secondary);">
+              <i class="bi bi-person-x" style="font-size: 2.5rem;"></i>
+              <p class="mt-2 mb-0">No hay pasajeros en la cola</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

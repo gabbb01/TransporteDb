@@ -1,0 +1,132 @@
+<div class="main-content">
+  <div class="page-header d-flex justify-content-between align-items-center">
+    <div>
+      <h2><i class="bi bi-bar-chart-line"></i> Reportes de Tráfico</h2>
+      <p>Dashboard con estadísticas del sistema — Rutas ordenadas con MergeSort</p>
+    </div>
+    <button class="btn btn-outline-cyber" (click)="cargarReporte()">
+      <i class="bi bi-arrow-clockwise"></i> Actualizar
+    </button>
+  </div>
+
+  @if (cargando) {
+    <div class="text-center py-5">
+      <div class="spinner-border" style="color: var(--accent-primary); width: 3rem; height: 3rem;"></div>
+      <p class="mt-3" style="color: var(--text-secondary);">Generando reporte...</p>
+    </div>
+  }
+
+  @if (reporte && !cargando) {
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-4 animate-in">
+        <div class="glass-card stat-card">
+          <div class="stat-icon"><i class="bi bi-geo-alt"></i></div>
+          <div class="stat-value">{{ reporte.totalEstaciones }}</div>
+          <div class="stat-label">Total Estaciones</div>
+        </div>
+      </div>
+      <div class="col-md-4 animate-in animate-delay-1">
+        <div class="glass-card stat-card">
+          <div class="stat-icon"><i class="bi bi-signpost-split"></i></div>
+          <div class="stat-value">{{ reporte.totalRutas }}</div>
+          <div class="stat-label">Total Rutas</div>
+        </div>
+      </div>
+      <div class="col-md-4 animate-in animate-delay-2">
+        <div class="glass-card stat-card">
+          <div class="stat-icon"><i class="bi bi-people"></i></div>
+          <div class="stat-value">{{ reporte.totalPasajerosEnEspera }}</div>
+          <div class="stat-label">Pasajeros en Espera</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Estaciones más conectadas -->
+      <div class="col-md-6 animate-in animate-delay-1">
+        <div class="glass-card h-100">
+          <h5 class="mb-3"><i class="bi bi-graph-up" style="color: var(--accent-primary);"></i> Estaciones Más Conectadas</h5>
+          @if (reporte.estacionesMasConectadas.length > 0) {
+            @for (est of reporte.estacionesMasConectadas; track est.codigo) {
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span style="font-weight: 500;">{{ est.nombre }}</span>
+                  <span class="badge-cyber">{{ est.numeroConexiones }} conexiones</span>
+                </div>
+                <div class="progress" style="height: 6px; background: var(--glass-bg); border-radius: 3px;">
+                  <div class="progress-bar" role="progressbar"
+                    [style.width.%]="getBarWidth(est.numeroConexiones)"
+                    style="background: var(--gradient-primary); border-radius: 3px;">
+                  </div>
+                </div>
+              </div>
+            }
+          } @else {
+            <p style="color: var(--text-secondary);">No hay datos disponibles.</p>
+          }
+        </div>
+      </div>
+
+      <!-- Pasajeros por estación -->
+      <div class="col-md-6 animate-in animate-delay-2">
+        <div class="glass-card h-100">
+          <h5 class="mb-3"><i class="bi bi-people" style="color: var(--accent-secondary);"></i> Pasajeros por Estación</h5>
+          @if (reporte.pasajerosPorEstacion.length > 0) {
+            @for (ep of reporte.pasajerosPorEstacion; track ep.codigoEstacion) {
+              <div class="queue-item">
+                <div class="queue-position">{{ ep.pasajerosEnEspera }}</div>
+                <div>
+                  <div style="font-weight: 600;">{{ ep.nombreEstacion }}</div>
+                  <div style="font-size: 0.8rem; color: var(--text-secondary);">
+                    {{ ep.codigoEstacion }}
+                  </div>
+                </div>
+              </div>
+            }
+          } @else {
+            <div class="text-center py-3" style="color: var(--text-secondary);">
+              <i class="bi bi-emoji-smile" style="font-size: 1.5rem;"></i>
+              <p class="mb-0 mt-1">No hay pasajeros en espera</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Rutas ordenadas por MergeSort -->
+    <div class="glass-card mt-4 animate-in animate-delay-3">
+      <h5 class="mb-3"><i class="bi bi-sort-numeric-up" style="color: var(--accent-warning);"></i> Rutas Ordenadas por Distancia (MergeSort)</h5>
+      <div class="table-responsive">
+        <table class="table table-cyber mb-0">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ID Ruta</th>
+              <th>Origen ID</th>
+              <th>Destino ID</th>
+              <th>Distancia</th>
+              <th>Tiempo</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (ruta of reporte.rutasOrdenadasPorDistancia; track ruta.rutaId; let i = $index) {
+              <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ ruta.rutaId }}</td>
+                <td>{{ ruta.origenId }}</td>
+                <td>{{ ruta.destinoId }}</td>
+                <td><span class="badge-cyber">{{ ruta.distanciaKm }} km</span></td>
+                <td>{{ ruta.tiempoMinutos }} min</td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="6" class="text-center py-3" style="color: var(--text-secondary);">Sin rutas</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

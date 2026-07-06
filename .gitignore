@@ -1,0 +1,49 @@
+# ==============================
+# FRONTEND (Angular / Node.js)
+# ==============================
+# Dependencies
+/frontend/node_modules/
+/frontend/npm-debug.log
+/frontend/yarn-error.log
+
+# Build output
+/frontend/dist/
+/frontend/tmp/
+/frontend/out-tsc/
+/frontend/bazel-out/
+/frontend/.angular/
+
+# ==============================
+# BACKEND (.NET / C#)
+# ==============================
+# Build results
+/WebApiTransporteDb/bin/
+/WebApiTransporteDb/obj/
+TestResults/
+
+# Visual Studio / IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Secrets and local configuration
+# Uncomment if you don't want to upload your local appsettings
+# /WebApiTransporteDb/appsettings.Development.json
+# /WebApiTransporteDb/appsettings.json
+*.env
+*.secret
+
+# ==============================
+# OS Generated Files
+# ==============================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db

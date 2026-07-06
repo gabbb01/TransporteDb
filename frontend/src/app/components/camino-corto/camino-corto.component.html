@@ -1,0 +1,94 @@
+<div class="main-content">
+  <div class="page-header">
+    <h2><i class="bi bi-compass"></i> Camino Más Corto</h2>
+    <p>Algoritmo de Dijkstra — Complejidad O((V + E) log V) con Cola de Prioridad</p>
+  </div>
+
+  <!-- Selector de origen y destino -->
+  <div class="glass-card mb-4">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label">Estación Origen</label>
+        <select class="form-select" [(ngModel)]="origenSeleccionado">
+          <option value="" disabled>Seleccionar origen...</option>
+          @for (est of estaciones; track est.estacionId) {
+            <option [value]="est.codigo">{{ est.codigo }} — {{ est.nombre }}</option>
+          }
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Estación Destino</label>
+        <select class="form-select" [(ngModel)]="destinoSeleccionado">
+          <option value="" disabled>Seleccionar destino...</option>
+          @for (est of estaciones; track est.estacionId) {
+            <option [value]="est.codigo">{{ est.codigo }} — {{ est.nombre }}</option>
+          }
+        </select>
+      </div>
+      <div class="col-md-4 d-flex gap-2">
+        <button class="btn btn-gradient flex-fill" (click)="calcular()" [disabled]="buscando">
+          @if (buscando) {
+            <span class="spinner-border spinner-border-sm me-1"></span> Calculando...
+          } @else {
+            <i class="bi bi-search"></i> Calcular Ruta
+          }
+        </button>
+        <button class="btn btn-outline-cyber" (click)="limpiar()">
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resultado -->
+  @if (resultado && resultado.rutaEncontrada) {
+    <div class="glass-card mb-4 animate-in">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0"><i class="bi bi-check-circle" style="color: var(--accent-success);"></i> Ruta Encontrada</h5>
+        <span class="badge-cyber" style="font-size: 1rem;">
+          <i class="bi bi-rulers"></i> {{ resultado.distanciaTotalKm }} km totales
+        </span>
+      </div>
+
+      <!-- Visualización del camino -->
+      <div class="d-flex flex-wrap align-items-center gap-2 py-3">
+        @for (est of resultado.camino; track est.estacionId; let last = $last) {
+          <div class="path-node animate-in">
+            <div style="font-weight: 700; color: var(--accent-primary);">{{ est.codigo }}</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">{{ est.nombre }}</div>
+          </div>
+          @if (!last) {
+            <div class="path-arrow">
+              <i class="bi bi-arrow-right"></i>
+            </div>
+          }
+        }
+      </div>
+
+      <!-- Detalles -->
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="bi bi-geo-alt"></i></div>
+            <div class="stat-value">{{ resultado.camino.length }}</div>
+            <div class="stat-label">Estaciones en ruta</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="bi bi-rulers"></i></div>
+            <div class="stat-value">{{ resultado.distanciaTotalKm }}</div>
+            <div class="stat-label">Kilómetros totales</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="glass-card stat-card">
+            <div class="stat-icon"><i class="bi bi-signpost-split"></i></div>
+            <div class="stat-value">{{ resultado.camino.length - 1 }}</div>
+            <div class="stat-label">Tramos recorridos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
