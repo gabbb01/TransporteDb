@@ -9,7 +9,6 @@ namespace WebApiTransporteDb.Services
     {
         private readonly string _connectionString;
 
-        // Aquí vive tu TDA en memoria RAM
         public GrafoUrbano Grafo { get; private set; }
 
         public TransporteService(IConfiguration configuration)

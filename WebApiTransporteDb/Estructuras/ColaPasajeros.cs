@@ -2,18 +2,16 @@ using WebApiTransporteDb.Models;
 
 namespace WebApiTransporteDb.Estructuras
 {
-    /// <summary>
+
     /// TDA Cola de Pasajeros (FIFO - Primero en entrar, primero en salir).
     /// Gestiona la espera de pasajeros en cada estación del sistema de transporte.
-    /// </summary>
     public class ColaPasajeros
     {
         // Estructura interna: Cola genérica de .NET que implementa FIFO
         private readonly Queue<Pasajero> _cola;
 
-        /// <summary>
         /// Constructor: Inicializa la cola vacía.
-        /// </summary>
+
         public ColaPasajeros()
         {
             _cola = new Queue<Pasajero>();
