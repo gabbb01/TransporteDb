@@ -81,6 +81,9 @@ namespace WebApiTransporteDb.Estructuras
             // Diccionario para guardar la distancia mínima conocida desde el origen a cada nodo
             var distancias = new Dictionary<string, decimal>();
 
+            // Diccionario para guardar el costo acumulado en Lempiras
+            var costos = new Dictionary<string, int>();
+
             // Diccionario para saber de dónde venimos y poder reconstruir el camino al final
             var previos = new Dictionary<string, string>();
 
@@ -94,8 +97,10 @@ namespace WebApiTransporteDb.Estructuras
             foreach (var nodo in Nodos.Keys)
             {
                 distancias[nodo] = decimal.MaxValue; // Asignamos "Infinito" a todos
+                costos[nodo] = int.MaxValue;
             }
             distancias[codigoOrigen] = 0; // La distancia del origen a sí mismo es 0
+            costos[codigoOrigen] = 0;
             colaPrioridad.Enqueue(codigoOrigen, 0);
 
             // 3. Ciclo principal de Dijkstra
@@ -119,11 +124,13 @@ namespace WebApiTransporteDb.Estructuras
                     if (nodoDestino == null || visitados.Contains(nodoDestino)) continue;
 
                     decimal nuevaDistancia = distancias[actual] + ruta.DistanciaKm;
+                    int nuevoCosto = costos[actual] + ruta.CostoLempiras;
 
                     // Si encontramos un camino más corto hacia este vecino, actualizamos
                     if (nuevaDistancia < distancias[nodoDestino])
                     {
                         distancias[nodoDestino] = nuevaDistancia;
+                        costos[nodoDestino] = nuevoCosto;
                         previos[nodoDestino] = actual;
                         colaPrioridad.Enqueue(nodoDestino, nuevaDistancia);
                     }
@@ -145,6 +152,7 @@ namespace WebApiTransporteDb.Estructuras
             }
 
             resultado.DistanciaTotalKm = distancias[codigoDestino];
+            resultado.CostoTotalLempiras = costos[codigoDestino];
             resultado.RutaEncontrada = true;
 
             return resultado;

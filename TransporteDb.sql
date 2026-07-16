@@ -31,6 +31,7 @@ CREATE TABLE Rutas (
     DestinoId INT NOT NULL,
     DistanciaKm DECIMAL(5,2) NOT NULL,
     TiempoMinutos INT NOT NULL,
+    CostoLempiras INT NOT NULL DEFAULT 10,
 
     CONSTRAINT FK_Rutas_Origen FOREIGN KEY (OrigenId) REFERENCES Estaciones(EstacionId),
     CONSTRAINT FK_Rutas_Destino FOREIGN KEY (DestinoId) REFERENCES Estaciones(EstacionId),
@@ -86,71 +87,71 @@ GO
 -- =============================================
 
 -- Terminal de Buses (COM-01)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (1, 2, 1.20, 5);    -- Terminal → Parque Central
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (1, 6, 0.80, 4);    -- Terminal → Mercado Municipal
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (1, 7, 1.50, 7);    -- Terminal → Estadio
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (1, 2, 1.20, 5, 10);    -- Terminal → Parque Central
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (1, 6, 0.80, 4, 10);    -- Terminal → Mercado Municipal
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (1, 7, 1.50, 7, 10);    -- Terminal → Estadio
 
 -- Parque Central (COM-02)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (2, 4, 1.80, 8);    -- Parque Central → Hospital
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (2, 6, 0.50, 3);    -- Parque Central → Mercado
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (2, 8, 1.00, 5);    -- Parque Central → Barrio Arriba
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (2, 5, 1.50, 7);    -- Parque Central → Mall Premier
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (2, 4, 1.80, 8, 10);    -- Parque Central → Hospital
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (2, 6, 0.50, 3, 10);    -- Parque Central → Mercado
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (2, 8, 1.00, 5, 10);    -- Parque Central → Barrio Arriba
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (2, 5, 1.50, 7, 10);    -- Parque Central → Mall Premier
 
 -- UNAH CURC (COM-03)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (3, 5, 2.80, 10);   -- CURC → Mall Premier
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (3, 7, 2.00, 9);    -- CURC → Estadio
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (3, 4, 2.20, 10);   -- CURC → Hospital
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (3, 5, 2.80, 10, 10);   -- CURC → Mall Premier
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (3, 7, 2.00, 9, 10);    -- CURC → Estadio
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (3, 4, 2.20, 10, 10);   -- CURC → Hospital
 
 -- Hospital Santa Teresa (COM-04)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (4, 5, 2.50, 12);   -- Hospital → Mall Premier
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (4, 8, 1.30, 6);    -- Hospital → Barrio Arriba
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (4, 5, 2.50, 12, 10);   -- Hospital → Mall Premier
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (4, 8, 1.30, 6, 10);    -- Hospital → Barrio Arriba
 
 -- Mall Premier (COM-05)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (5, 1, 2.00, 8);    -- Mall → Terminal (regreso)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (5, 1, 2.00, 8, 10);    -- Mall → Terminal (regreso)
 
 -- Mercado Municipal (COM-06)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (6, 1, 0.80, 4);    -- Mercado → Terminal
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (6, 8, 1.20, 6);    -- Mercado → Barrio Arriba
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (6, 1, 0.80, 4, 10);    -- Mercado → Terminal
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (6, 8, 1.20, 6, 10);    -- Mercado → Barrio Arriba
 
 -- Estadio Carlos Miranda (COM-07)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (7, 3, 2.00, 9);    -- Estadio → CURC
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (7, 2, 1.80, 8);    -- Estadio → Parque Central
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (7, 3, 2.00, 9, 10);    -- Estadio → CURC
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (7, 2, 1.80, 8, 10);    -- Estadio → Parque Central
 
 -- Barrio Arriba (COM-08)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (8, 2, 1.00, 5);    -- Barrio Arriba → Parque Central
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (8, 3, 3.00, 12);   -- Barrio Arriba → CURC
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (8, 2, 1.00, 5, 10);    -- Barrio Arriba → Parque Central
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (8, 3, 3.00, 12, 10);   -- Barrio Arriba → CURC
 
 -- =============================================
 -- RUTAS COMAYAGUA → LA PAZ (~23 km)
 -- =============================================
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (1, 9, 18.00, 30);  -- Terminal → Entrada La Paz (por carretera principal)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (5, 9, 16.50, 25);  -- Mall Premier → Entrada La Paz (salida norte)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (9, 10, 3.50, 8);   -- Entrada La Paz → Parque Central La Paz
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (9, 11, 4.00, 10);  -- Entrada La Paz → Terminal La Paz
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (10, 11, 1.00, 4);  -- Parque La Paz → Terminal La Paz
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (11, 9, 4.00, 10);  -- Terminal La Paz → Entrada (regreso)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (1, 9, 18.00, 30, 54);  -- Terminal → Entrada La Paz (por carretera principal)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (5, 9, 16.50, 25, 50);  -- Mall Premier → Entrada La Paz (salida norte)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (9, 10, 3.50, 8, 11);   -- Entrada La Paz → Parque Central La Paz
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (9, 11, 4.00, 10, 12);  -- Entrada La Paz → Terminal La Paz
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (10, 11, 1.00, 4, 10);  -- Parque La Paz → Terminal La Paz
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (11, 9, 4.00, 10, 12);  -- Terminal La Paz → Entrada (regreso)
 
 -- =============================================
 -- RUTAS COMAYAGUA → AJUTERIQUE (~13 km al sur)
 -- =============================================
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (1, 12, 10.00, 20); -- Terminal → Entrada Ajuterique
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (7, 12, 9.50, 18);  -- Estadio → Entrada Ajuterique (ruta alterna por el sur)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (12, 13, 3.00, 8);  -- Entrada Ajuterique → Parque Ajuterique
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (13, 12, 3.00, 8);  -- Parque Ajuterique → Entrada (regreso)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (12, 1, 10.00, 20); -- Entrada Ajuterique → Terminal (regreso)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (1, 12, 10.00, 20, 30); -- Terminal → Entrada Ajuterique
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (7, 12, 9.50, 18, 29);  -- Estadio → Entrada Ajuterique (ruta alterna por el sur)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (12, 13, 3.00, 8, 10);  -- Entrada Ajuterique → Parque Ajuterique
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (13, 12, 3.00, 8, 10);  -- Parque Ajuterique → Entrada (regreso)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (12, 1, 10.00, 20, 30); -- Entrada Ajuterique → Terminal (regreso)
 
 -- =============================================
 -- RUTAS COMAYAGUA → EL ROSARIO (~20 km al norte)
 -- =============================================
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (1, 14, 18.00, 35);  -- Terminal → Entrada El Rosario
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (14, 15, 4.00, 10);  -- Entrada El Rosario → Centro El Rosario
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (15, 14, 4.00, 10);  -- Centro El Rosario → Entrada (regreso)
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (14, 1, 18.00, 35);  -- Entrada El Rosario → Terminal (regreso)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (1, 14, 18.00, 35, 54);  -- Terminal → Entrada El Rosario
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (14, 15, 4.00, 10, 12);  -- Entrada El Rosario → Centro El Rosario
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (15, 14, 4.00, 10, 12);  -- Centro El Rosario → Entrada (regreso)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (14, 1, 18.00, 35, 54);  -- Entrada El Rosario → Terminal (regreso)
 
 -- =============================================
 -- RUTAS INTER-MUNICIPALES
 -- =============================================
-INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos) VALUES (13, 14, 20.00, 45); -- Ajuterique → El Rosario (sur a norte)
+INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras) VALUES (13, 14, 20.00, 45, 60); -- Ajuterique → El Rosario (sur a norte)
 
 GO
 
@@ -169,6 +170,7 @@ SELECT
     ed.Codigo AS CodigoDestino,
     ed.Nombre AS Destino,
     r.DistanciaKm,
+    r.CostoLempiras,
     r.TiempoMinutos
 FROM Rutas r
 INNER JOIN Estaciones eo ON r.OrigenId = eo.EstacionId
@@ -186,3 +188,41 @@ GROUP BY e.Codigo, e.Nombre
 ORDER BY TotalConexiones DESC;
 
 GO
+-- =============================================
+-- SCRIPT: Agregar columna CostoLempiras a la tabla Rutas
+-- Fórmula: MIN(MAX(DistanciaKm * 3, 10), 60)
+-- Mínimo: 10 LPS | Máximo: 60 LPS
+-- =============================================
+
+USE TransporteDb;
+GO
+
+-- 1. Agregar la columna con valor por defecto de 10 LPS
+ALTER TABLE Rutas
+ADD CostoLempiras INT NOT NULL DEFAULT 10;
+GO
+
+-- 2. Actualizar los costos según la distancia: MIN(MAX(Km * 3, 10), 60)
+UPDATE Rutas
+SET CostoLempiras = 
+    CASE 
+        WHEN DistanciaKm * 3 < 10 THEN 10
+        WHEN DistanciaKm * 3 > 60 THEN 60
+        ELSE ROUND(DistanciaKm * 3, 0)
+    END;
+GO
+
+-- 3. Verificar los resultados
+SELECT 
+    r.RutaId,
+    eo.Nombre AS Origen,
+    ed.Nombre AS Destino,
+    r.DistanciaKm,
+    r.CostoLempiras,
+    r.TiempoMinutos
+FROM Rutas r
+INNER JOIN Estaciones eo ON r.OrigenId = eo.EstacionId
+INNER JOIN Estaciones ed ON r.DestinoId = ed.EstacionId
+ORDER BY r.CostoLempiras DESC;
+GO
+

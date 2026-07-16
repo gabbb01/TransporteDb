@@ -209,6 +209,64 @@ body {
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
+/* ===== BADGE COSTO (Lempiras) ===== */
+.badge-costo {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 179, 8, 0.2));
+  color: #fbbf24;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 1.5px solid rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.3s ease;
+}
+
+.badge-costo:hover {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  transform: scale(1.05);
+}
+
+.badge-costo i {
+  font-size: 0.85rem;
+}
+
+.badge-costo-lg {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(234, 179, 8, 0.2));
+  color: #fbbf24;
+  padding: 0.5rem 1.2rem;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border: 2px solid rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stat-card-costo .stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #fbbf24;
+  -webkit-text-fill-color: #fbbf24;
+}
+
+.stat-card-costo .stat-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fbbf24;
+  -webkit-text-fill-color: #fbbf24;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
 .badge-warning {
   background: rgba(245, 158, 11, 0.15) !important;
   color: var(--accent-warning) !important;

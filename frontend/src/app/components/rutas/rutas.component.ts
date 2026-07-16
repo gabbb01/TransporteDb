@@ -24,7 +24,8 @@ export class RutasComponent implements OnInit {
     origenId: 0,
     destinoId: 0,
     distanciaKm: 0,
-    tiempoMinutos: 0
+    tiempoMinutos: 0,
+    costoLempiras: 10
   };
 
   constructor(private transporteService: TransporteService) {}
@@ -61,7 +62,7 @@ export class RutasComponent implements OnInit {
     this.transporteService.crearRuta(this.nuevaRuta).subscribe({
       next: (ruta) => {
         this.rutas.push(ruta);
-        this.nuevaRuta = { origenId: 0, destinoId: 0, distanciaKm: 0, tiempoMinutos: 0 };
+        this.nuevaRuta = { origenId: 0, destinoId: 0, distanciaKm: 0, tiempoMinutos: 0, costoLempiras: 10 };
         this.mostrarFormulario = false;
         Swal.fire('¡Éxito!', 'Ruta creada correctamente.', 'success');
       },
@@ -81,6 +82,6 @@ export class RutasComponent implements OnInit {
 
   cancelar(): void {
     this.mostrarFormulario = false;
-    this.nuevaRuta = { origenId: 0, destinoId: 0, distanciaKm: 0, tiempoMinutos: 0 };
+    this.nuevaRuta = { origenId: 0, destinoId: 0, distanciaKm: 0, tiempoMinutos: 0, costoLempiras: 10 };
   }
 }

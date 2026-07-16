@@ -1,4 +1,4 @@
-﻿namespace WebApiTransporteDb.Models
+namespace WebApiTransporteDb.Models
 {
     public class Ruta
     {
@@ -7,5 +7,6 @@
         public int DestinoId { get; set; }
         public decimal DistanciaKm { get; set; }
         public int TiempoMinutos { get; set; }
+        public int CostoLempiras { get; set; }
     }
 }

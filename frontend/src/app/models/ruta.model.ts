@@ -4,4 +4,5 @@ export interface Ruta {
   destinoId: number;
   distanciaKm: number;
   tiempoMinutos: number;
+  costoLempiras: number;
 }

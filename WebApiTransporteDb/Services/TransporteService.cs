@@ -74,6 +74,7 @@ namespace WebApiTransporteDb.Services
                 r.DestinoId,
                 r.DistanciaKm,
                 r.TiempoMinutos,
+                r.CostoLempiras,
                 NombreDestino = Grafo.ObtenerCodigoPorId(r.DestinoId) is string codDest
                     && Grafo.Nodos.TryGetValue(codDest, out var nodoDest)
                     ? nodoDest.Datos.Nombre : "Desconocido"
@@ -108,8 +109,8 @@ namespace WebApiTransporteDb.Services
         public Ruta CrearRuta(Ruta ruta)
         {
             using var connection = new SqlConnection(_connectionString);
-            var sql = @"INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos)
-                        VALUES (@OrigenId, @DestinoId, @DistanciaKm, @TiempoMinutos);
+            var sql = @"INSERT INTO Rutas (OrigenId, DestinoId, DistanciaKm, TiempoMinutos, CostoLempiras)
+                        VALUES (@OrigenId, @DestinoId, @DistanciaKm, @TiempoMinutos, @CostoLempiras);
                         SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             ruta.RutaId = connection.QuerySingle<int>(sql, ruta);

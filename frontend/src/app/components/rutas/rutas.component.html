@@ -37,13 +37,17 @@
             }
           </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Distancia (Km)</label>
           <input type="number" class="form-control" placeholder="0.00" step="0.01" [(ngModel)]="nuevaRuta.distanciaKm">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <label class="form-label">Tiempo (Min)</label>
           <input type="number" class="form-control" placeholder="0" [(ngModel)]="nuevaRuta.tiempoMinutos">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Costo (LPS)</label>
+          <input type="number" class="form-control" placeholder="10" step="1" [(ngModel)]="nuevaRuta.costoLempiras">
         </div>
       </div>
       <div class="mt-3 d-flex gap-2">
@@ -68,6 +72,7 @@
               <th>Origen</th>
               <th>Destino</th>
               <th>Distancia</th>
+              <th><i class="bi bi-cash-coin"></i> Costo (LPS)</th>
               <th>Tiempo</th>
             </tr>
           </thead>
@@ -78,6 +83,7 @@
                 <td>{{ getNombreEstacion(ruta.origenId) }}</td>
                 <td>{{ getNombreEstacion(ruta.destinoId) }}</td>
                 <td><span class="badge-cyber">{{ ruta.distanciaKm }} km</span></td>
+                <td><span class="badge-costo"><i class="bi bi-cash-coin"></i> L. {{ ruta.costoLempiras }}</span></td>
                 <td>{{ ruta.tiempoMinutos }} min</td>
               </tr>
             }
@@ -97,6 +103,7 @@
             <th>Origen</th>
             <th>Destino</th>
             <th>Distancia</th>
+            <th><i class="bi bi-cash-coin"></i> Costo (LPS)</th>
             <th>Tiempo</th>
           </tr>
         </thead>
@@ -107,11 +114,12 @@
               <td>{{ getNombreEstacion(ruta.origenId) }}</td>
               <td>{{ getNombreEstacion(ruta.destinoId) }}</td>
               <td><span class="badge-cyber">{{ ruta.distanciaKm }} km</span></td>
+              <td><span class="badge-costo"><i class="bi bi-cash-coin"></i> L. {{ ruta.costoLempiras }}</span></td>
               <td>{{ ruta.tiempoMinutos }} min</td>
             </tr>
           } @empty {
             <tr>
-              <td colspan="5" class="text-center py-4" style="color: var(--text-secondary);">
+              <td colspan="6" class="text-center py-4" style="color: var(--text-secondary);">
                 <i class="bi bi-signpost" style="font-size: 2rem;"></i>
                 <p class="mt-2 mb-0">No hay rutas registradas</p>
               </td>
