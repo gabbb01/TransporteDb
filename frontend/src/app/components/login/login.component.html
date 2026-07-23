@@ -1,0 +1,89 @@
+<div class="login-page">
+  <!-- Fondo animado -->
+  <div class="bg-grid"></div>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+
+  <!-- Card de Login -->
+  <div class="login-card animate-in">
+    <!-- Logo / Ícono -->
+    <div class="login-icon">
+      <i class="bi bi-bus-front-fill"></i>
+    </div>
+
+    <!-- Título -->
+    <h1 class="login-title">Sistema de Transporte</h1>
+    <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
+
+    <!-- Formulario -->
+    <form (ngSubmit)="login()" class="login-form">
+
+      <!-- Error -->
+      @if (error) {
+        <div class="error-alert animate-in">
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          <span>{{ error }}</span>
+        </div>
+      }
+
+      <!-- Usuario -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="bi bi-person"></i> Usuario
+        </label>
+        <input
+          id="username"
+          type="text"
+          class="field-input"
+          [(ngModel)]="username"
+          name="username"
+          autocomplete="username"
+          [disabled]="cargando"
+        />
+      </div>
+
+      <!-- Contraseña -->
+      <div class="field-group">
+        <label class="field-label">
+          <i class="bi bi-lock"></i> Contraseña
+        </label>
+        <div class="password-wrapper">
+          <input
+            id="password"
+            [type]="mostrarPassword ? 'text' : 'password'"
+            class="field-input"
+            placeholder="••••••••"
+            [(ngModel)]="password"
+            name="password"
+            autocomplete="current-password"
+            [disabled]="cargando"
+          />
+          <button type="button" class="toggle-password" (click)="togglePassword()">
+            <i [class]="mostrarPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Botón -->
+      <button
+        id="login-btn"
+        type="submit"
+        class="btn-login"
+        [disabled]="cargando"
+      >
+        @if (cargando) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Iniciando sesión...
+        } @else {
+          <i class="bi bi-box-arrow-in-right me-2"></i>
+          Iniciar Sesión
+        }
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <p class="login-footer">
+      <i class="bi bi-shield-lock"></i>
+    </p>
+  </div>
+</div>

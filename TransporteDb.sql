@@ -194,9 +194,6 @@ GO
 -- Mínimo: 10 LPS | Máximo: 60 LPS
 -- =============================================
 
-USE TransporteDb;
-GO
-
 -- 1. Agregar la columna con valor por defecto de 10 LPS
 ALTER TABLE Rutas
 ADD CostoLempiras INT NOT NULL DEFAULT 10;
@@ -226,3 +223,33 @@ INNER JOIN Estaciones ed ON r.DestinoId = ed.EstacionId
 ORDER BY r.CostoLempiras DESC;
 GO
 
+-- =============================================
+-- TABLA DE USUARIOS PARA AUTENTICACIÓN JWT
+-- =============================================
+USE TransporteDb;
+GO
+-- Crear tabla Usuarios
+CREATE TABLE Usuarios (
+    UsuarioId   INT IDENTITY(1,1) PRIMARY KEY,
+    Username    VARCHAR(50)  NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Rol         VARCHAR(20)  NOT NULL DEFAULT 'Admin',
+    Activo      BIT          NOT NULL DEFAULT 1,
+    CreadoEn    DATETIME     NOT NULL DEFAULT GETDATE()
+);
+GO
+-- Insertar usuario admin por defecto
+-- Contraseña: admin123 (hash BCrypt)
+INSERT INTO Usuarios (Username, PasswordHash, Rol)
+VALUES (
+    'admin',
+    '$2a$12$s0YKlJGiMjkIv0mBGmDL7OBIhxcPLFxjApZ5XkiJFi5KxMl6hJuXe',
+    'Admin'
+);
+GO
+-- Verificar
+SELECT UsuarioId, Username, Rol, Activo, CreadoEn FROM Usuarios;
+GO
+
+SELECT * FROM Usuarios
+GO

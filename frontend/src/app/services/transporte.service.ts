@@ -12,7 +12,7 @@ import { ReporteTrafico } from '../models/reporte-trafico.model';
 })
 export class TransporteService {
 
-  private apiUrl = 'https://localhost:7280/api/transporte';
+  private apiUrl = 'https://localhost:7004/api/transporte';
 
   constructor(private http: HttpClient) {}
 

@@ -1,3 +1,6 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using WebApiTransporteDb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,34 +8,51 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Agregar los controladores
 builder.Services.AddControllers();
 
-// 2. Inyectar el TransporteService como SINGLETON (Crítico para mantener los TDA en memoria)
+// 2. Inyectar servicios
 builder.Services.AddSingleton<TransporteService>();
+builder.Services.AddSingleton<AuthService>();
 
-// 3. Configurar Swagger para probar la API
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// 3. Configurar autenticación JWT Bearer
+var jwtKey = builder.Configuration["Jwt:Key"]!;
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer           = true,
+            ValidateAudience         = true,
+            ValidateLifetime         = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer              = builder.Configuration["Jwt:Issuer"],
+            ValidAudience            = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    });
 
-// 4. Configurar CORS para permitir peticiones desde Angular
+builder.Services.AddAuthorization();
+
+
+// 5. Configurar CORS para permitir peticiones desde Angular
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.SetIsOriginAllowed(_ => true)
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials(); // Opcional, pero útil
     });
 });
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// 6. Crear usuario admin por defecto si no existe
+app.Services.GetRequiredService<AuthService>().SeedAdmin();
+
 
 app.UseHttpsRedirection();
 app.UseCors("PermitirAngular");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

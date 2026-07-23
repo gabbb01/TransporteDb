@@ -35,6 +35,20 @@
           </a>
         </li>
       </ul>
+
+      <!-- Usuario + Logout -->
+      @if (authService.isLoggedIn()) {
+        <div class="d-flex align-items-center gap-2 ms-3">
+          <span class="user-badge">
+            <i class="bi bi-person-circle"></i>
+            {{ authService.getUsername() }}
+          </span>
+          <button class="btn-logout" (click)="logout()" title="Cerrar sesión">
+            <i class="bi bi-box-arrow-right"></i>
+            Salir
+          </button>
+        </div>
+      }
     </div>
   </div>
 </nav>

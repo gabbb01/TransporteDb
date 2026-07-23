@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApiTransporteDb.Models;
 using WebApiTransporteDb.Services;
 
 namespace WebApiTransporteDb.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TransporteController : ControllerBase
