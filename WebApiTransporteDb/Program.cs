@@ -5,14 +5,13 @@ using WebApiTransporteDb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Agregar los controladores
 builder.Services.AddControllers();
 
-// 2. Inyectar servicios
+// Inyectar servicios
 builder.Services.AddSingleton<TransporteService>();
 builder.Services.AddSingleton<AuthService>();
 
-// 3. Configurar autenticación JWT Bearer
+// Configurar autenticación JWT Bearer
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -32,7 +31,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 
-// 5. Configurar CORS para permitir peticiones desde Angular
+// Configurar CORS para permitir peticiones desde Angular
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("PermitirAngular", policy =>
@@ -40,13 +39,13 @@ builder.Services.AddCors(options =>
         policy.SetIsOriginAllowed(_ => true)
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials(); // Opcional, pero útil
+              .AllowCredentials();
     });
 });
 
 var app = builder.Build();
 
-// 6. Crear usuario admin por defecto si no existe
+// Crear usuario admin por defecto si no existe
 app.Services.GetRequiredService<AuthService>().SeedAdmin();
 
 

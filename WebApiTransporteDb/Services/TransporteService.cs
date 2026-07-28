@@ -204,6 +204,7 @@ namespace WebApiTransporteDb.Services
                     Pasajeros = n.ColaPasajeros.ObtenerTodos()
                 })
                 .Where(ep => ep.PasajerosEnEspera > 0)
+                .OrderByDescending(ep => ep.PasajerosEnEspera)
                 .ToList();
 
             reporte.TotalEstaciones = Grafo.Nodos.Count;

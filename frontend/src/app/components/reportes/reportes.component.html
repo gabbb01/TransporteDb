@@ -73,15 +73,16 @@
         <div class="glass-card h-100">
           <h5 class="mb-3"><i class="bi bi-people" style="color: var(--accent-secondary);"></i> Pasajeros por Estación</h5>
           @if (reporte.pasajerosPorEstacion.length > 0) {
-            @for (ep of reporte.pasajerosPorEstacion; track ep.codigoEstacion) {
+          @for (ep of reporte.pasajerosPorEstacion; track ep.codigoEstacion; let i = $index) {
               <div class="queue-item">
-                <div class="queue-position">{{ ep.pasajerosEnEspera }}</div>
-                <div>
+                <div class="queue-position">{{ i + 1 }}</div>
+                <div style="flex: 1;">
                   <div style="font-weight: 600;">{{ ep.nombreEstacion }}</div>
                   <div style="font-size: 0.8rem; color: var(--text-secondary);">
                     {{ ep.codigoEstacion }}
                   </div>
                 </div>
+                <span class="badge-cyber">{{ ep.pasajerosEnEspera }} pasajero{{ ep.pasajerosEnEspera !== 1 ? 's' : '' }}</span>
               </div>
             }
           } @else {
